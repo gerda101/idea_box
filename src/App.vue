@@ -1,28 +1,52 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header/>
+    <Ideas v-bind:ideas="ideas" v-on:del-idea="deleteIdea" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import Header from './components/Header';
+  import Ideas from './components/Ideas';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+
+    components: {
+      Header,
+      Ideas
+    },
+
+    data() {
+      return {
+        ideas: [
+          {
+            id: 1,
+            text: "Test idea 1"
+          },
+          {
+            id: 2,
+            text: "Test idea 2"
+          },
+          {
+            id: 3,
+            text: "Test idea 3"
+          }
+        ]
+      }
+    },
+
+    methods: {
+      deleteIdea(id) {
+        this.ideas = this.ideas.filter(idea => idea.id !== id);
+      }
+    }
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+  }
 </style>

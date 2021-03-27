@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-bind:key="idea.id" v-for="idea in ideas">
       <IdeaItem v-bind:idea="idea" v-on:del-idea="$emit('del-idea', idea.id)"/>
     </div>
@@ -19,5 +19,18 @@
 </script>
 
 <style scoped>
-  
+  .container {
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: row;
+    justify-items: normal;
+    background-color: #c05b1c;
+    opacity: 80%;
+    flex-wrap: wrap;
+  }
+  .container > div {
+  margin: 10px;
+  opacity: 100%;
+}
 </style>

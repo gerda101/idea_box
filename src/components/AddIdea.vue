@@ -2,7 +2,7 @@
   <div>
     <form v-on:submit="addIdea">
       <input type="text" v-model="text" name="text" placeholder="Type your new idea here!" />
-      <input type="submit" value="Submit" class="btn"/>
+      <input type="submit" value="Add new idea to the board!" class="btn"/>
     </form>
   </div>
 </template>
@@ -16,6 +16,7 @@ import {uuid} from 'vue-uuid';
         text: ''
       }
     },
+    
     methods: {
       addIdea(e) {
         e.preventDefault();
@@ -31,17 +32,6 @@ import {uuid} from 'vue-uuid';
 
 </script>
 
-<style scoped>
-form{
-  display: flex;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-input[type='text'] {
-  flex: 10;
-  padding: 5px;
-}
-input[type='submit'] {
-  flex: 2;
-}
+<style>
+
 </style>

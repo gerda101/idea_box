@@ -24,12 +24,14 @@
     align-items: center;
   }
   h1 {
-    font-size: 100px;
+    font-size: 10vw;
     padding: 0px;
     margin: 0px;
+    opacity: 70%;
   }
   img {
     position: center;
+    min-width: 10%;
     max-width: 30%;
     padding: 0px;
     margin: 0px;

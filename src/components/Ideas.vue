@@ -25,8 +25,8 @@
     display: flex;
     align-items: row;
     justify-items: normal;
-    background-color: #c05b1c;
-    opacity: 80%;
+    background-color: lightgrey;
+    opacity: 70%;
     flex-wrap: wrap;
   }
   .container > div {

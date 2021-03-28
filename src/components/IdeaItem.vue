@@ -1,57 +1,51 @@
 <template>
-  <div>
-    <div class="idea-item" v-bind:style="{'background-color': pickColor}">
+    <div>
+      <span :style="pickColor">
       <input type="checkbox" v-on:change="selected"/>
       {{idea.text}}
-      <button @click="$emit('del-idea', idea.id)">x</button>
+      <button class="del_button" @click="$emit('del-idea', idea.id)">x</button>
+      </span>
     </div>
-  </div>
 </template>
 
 <script>
   export default {
     name: "IdeaItem",
-    props: ["idea"],
+    props: ["idea", 'color'],
+
+    computed: {
+      pickColor() {
+        var colors = [
+        "#faa4e3", "#ff6b53", "#ff4122", "#92e1df", "#ffb493"
+        ];
+        var random_color = colors[Math.floor(Math.random() * colors.length)];
+        console.log(random_color);
+        return {'--color': random_color}
+      } 
+    },
 
     methods: {
       selected() {
         //Modify code missing
         console.log("selected");
-      }
-
+      },
     }
-  }
-
-  methods: {
-    function pickColor() {
-      var colors = [
-      '#faa4e3', '#ff6b53', '#ff4122', '#92e1df', '#ffb493'
-      ];
-      var random_color = colors[Math.floor(Math.random() * colors.length)];
-      console.log(random_color);
-      return random_color;
-              
-      var x = document.getElementByClass('idea-item');
-      x.style.backgroundcolor = random_color;
-    } 
   }
 
 </script>
 
-<style scoped>
-  .idea-item {
-    background: turquoise;
-    padding: 16px;
+<style>
+  span {
+    background-color: var(--color);
+    display: block;
     min-height: 100px;
     width: 100px;
-  }
-  .is-selected {
-    border: groove;
+    padding: 16px;
   }
 
-  button {
+  .del_button {
     background-color: red;
-    opacity: 50%;
+    opacity: 70%;
     border: 0px;
     text-align: center;
   }

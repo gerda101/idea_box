@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <form v-on:submit="addIdea">
       <input type="text" v-model="text" name="text" placeholder="Type your new idea here!" />
       <input type="submit" value="Add new idea to the board!" class="btn"/>
@@ -22,7 +22,7 @@ import {uuid} from 'vue-uuid';
         e.preventDefault();
         const newIdea = {
           id: uuid.v4(),
-          text: this.text
+          text: this.text,
         }
         this.$emit('add-idea', newIdea);
         this.text ='';
@@ -32,6 +32,23 @@ import {uuid} from 'vue-uuid';
 
 </script>
 
-<style>
+<style scoped>
+  .app {
+    border: 0px;
+  }
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  input[type='text'] {
+    width: 70%;
+    padding: 5px;
+    margin-right: 10px;
+    color: lightgrey;
+  }
 
+  input[type='submit'] {
+    margin-left: 10px;
+  }
 </style>

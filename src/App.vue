@@ -1,9 +1,8 @@
 <template>
-  <div id="app" class="app" v-on:show-event='showDecider'>
+  <div id="app" class="app">
     <Header/>
-    <AddIdea v-on:add-idea='addIdea' v-show="showNew"/>
-    <EditIdea v-on:edit-idea='editIdea' v-show="showEdit"/>
-    <Ideas v-bind:ideas="ideas" v-on:del-idea="deleteIdea" />
+    <AddIdea v-on:add-idea='addIdea'/>
+    <Ideas v-bind:ideas="ideas" v-on:del-idea="deleteIdea" @update-idea="saveUpdatedIdea"/>
     <p class="footer">Made by Gerda Urbán in 2021</p>
   </div>
 </template>
@@ -12,7 +11,6 @@
   import Header from './components/Header';
   import Ideas from './components/Ideas';
   import AddIdea from './components/AddIdea';
-  import EditIdea from './components/EditIdea';
 
   export default {
     name: 'App',
@@ -21,17 +19,14 @@
       Header,
       Ideas,
       AddIdea,
-      EditIdea
     },
 
     data() {
       return {
-        showNew: true,
-        showEdit: false,
         ideas: [
           {
             id: 1,
-            text: "Test idea 1"
+            text: "Test idea 1",
           },
           {
             id: 2,
@@ -52,14 +47,14 @@
       addIdea(newIdea){
         this.ideas = [...this.ideas, newIdea];
       },
-      editIdea(oldId, editedIdea){
-        this.ideas = this.ideas.filter(idea => idea.id !== oldId);
-        this.ideas = [...this.ideas, editedIdea];
+      saveUpdatedIdea(editedIdea){
+        this.ideas.forEach(idea => {
+          if(this.idea.id == editedIdea.id){
+            this.idea.text = editedIdea.text;
+          }
+        });
+        //Prevent refresh missing
       },
-      showDecider(edit, add) {
-        this.showEdit = edit;
-        this.showNew = add;
-      }
     }
   }
 </script>
@@ -81,7 +76,6 @@
 
   .btn {
     background: #eb9b45;
-    opacity: 90%;
     cursor: pointer;
     border: 0px;
     padding-right: 10px;
@@ -89,23 +83,7 @@
   }
   .btn:hover {
     opacity: 100%;
-    box-shadow: 2px 1px lightgrey;
-  }
-
-  form{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  }
-  input[type='text'] {
-    width: 60%;
-    padding: 5px;
-    margin-right: 10px;
-    color: lightgrey;
-  }
-
-  input[type='submit'] {
-    margin-left: 10px;
+    box-shadow: 2px 1px grey;
   }
 
   .footer {

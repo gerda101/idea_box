@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-bind:key="idea.id" v-for="idea in ideas">
-      <IdeaItem v-bind:idea="idea" v-on:del-idea="$emit('del-idea', idea.id)" @event:show-event="$emit('show-event', true, false)"/>
+      <IdeaItem v-bind:idea="idea" v-on:del-idea="$emit('del-idea', idea.id)" @update-idea="$emit('update-idea', editedIdea)"/>
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@
     components: {
       IdeaItem
     },
-    props: ["ideas"],
+
+    props: ["ideas"]
   }
 
 </script>
@@ -25,13 +26,11 @@
     padding: 10px;
     display: flex;
     align-items: row;
-    justify-items: normal;
     background-color: lightgray;
-    opacity: 70%;
     flex-wrap: wrap;
+    opacity: 90%;
   }
   .container > div {
   margin: 10px;
-  opacity: 100%;
 }
 </style>

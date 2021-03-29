@@ -3,14 +3,18 @@
       <span :style="pickColor">
         <div class="idea" v-show="!editing">
           {{idea.text}}
-          <button @click="viewComments = true">Show comments</button>
           <div v-show="viewComments & !editing">
-            <Comments v-bind:comment="comment"/>
+            <Comments v-bind:comments="comment_array" v-bind:idea="idea" @del-comment="deleteComment"/>
+              <div v-show="commenting">
+                <AddComment v-on:add-comment='addComment' @commenting-done="commenting=false"/>
+              </div>
           </div>
           <div class="buttons" v-show="!editing & !commenting">
-            <button @click="commenting = true">Com</button>
-            <button @click="editing = true">Edit</button>
-            <button @click="$emit('del-idea', idea.id)">x</button>
+            <button class="button" @click="viewComments = true" v-show="!viewComments">Comments</button>
+            <button class="button" @click="viewComments = false" v-show="viewComments">Back</button>
+            <button class="button" @click="commenting = true" v-show="viewComments">New Comment</button>
+            <button class="button" @click="editing = true" v-show="!viewComments">Edit</button>
+            <button class="button" @click="$emit('del-idea', idea.id)" v-show="!viewComments">x</button>
           </div>
         </div>
 
@@ -18,28 +22,18 @@
         <form v-on:submit="updateIdea, editing=false">
           <input type="text" v-model="idea.text" name="updateText" />
           <div class="menu-buttons">
-            <input type="submit" class="menu-button" value="Confirm datachange"/>
-            <input type="button" class="menu-button" @click="editing = false" value="Back"/>
+            <input type="submit" class="button" value="Confirm datachange"/>
+            <input type="button" class="button" @click="editing = false" value="Back"/>
           </div>
         </form>
       </div>
-
-      <div class="comment" v-show="commenting">
-        <form v-on:submit="newComment, commenting=false">
-          <textarea name="comment" placeholder="Type your opinion about this idea here!" />
-          <div class="menu-buttons">
-            <input type="submit" class="menu-button" value="Add comment"/>
-            <input type="button" class="menu-button" @click="commenting = false" value="Back"/>
-          </div>
-        </form>
-      </div>
-
       </span>
     </div>
 </template>
 
 <script>
-  import Comments from './Comments.vue'
+  import Comments from './Comments.vue';
+  import AddComment from './AddComment';
 
   export default {
     name: "IdeaItem",
@@ -47,7 +41,8 @@
     showEdit: false,
 
     components: {
-      Comments
+      Comments,
+      AddComment
     },
 
     data() {
@@ -55,12 +50,22 @@
         editing: false,
         commenting: false,
         viewComments: false,
-        
-        comments: [
+
+        comment_array: [
           {
             id: 1,
             idea_id: 1,
-            comment_text: "Teszt comment"
+            comment_text: "Test comment"
+          },
+          {
+            id: 2,
+            idea_id: 3,
+            comment_text: "Test comment again"
+          },
+          {
+            id: 3,
+            idea_id: 3,
+            comment_text: "This is a test comment too"
           }
         ]
       }
@@ -86,6 +91,13 @@
         }
         this.$emit('update-idea', editedIdea);
       },
+      deleteComment(id) {
+        this.comment_array = this.comment_array.filter(comment => comment.id !== id);
+      },
+      addComment(newComment){
+        this.comment_array = [...this.comment_array, newComment];
+        //Prevent refresh/long-term storage missing
+      },
     }
   }
 
@@ -99,80 +111,10 @@
   span {
     background-color: var(--color);
     display: block;
-    min-height: 150px;
-    width: 150px;
+    min-height: 180px;
+    width: 200px;
     padding: 16px;
     padding-bottom: 30px;
     position: relative;
-  }
-
-  .buttons {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-  button {
-    background-color: lightgrey;
-    color: lightgrey;
-    opacity: 60%;
-    border: 0px;
-    text-align: center;
-    margin: 3px;
-  }
-  button:hover {
-    opacity: 90%;
-    color: black;
-    box-shadow: 2px 1px grey;
-    cursor: pointer;
-  }
-
-  form{
-    display: flex;
-    flex-direction: column;
-    margin: 5px;
-    align-items: right;
-  }
-  input[type='text'] {
-    padding: 5px;
-    margin: 5px;
-    color: grey;
-  }
-
-  .comment {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  textarea {
-    border: 0px;
-    padding: 10px;
-    width: 80%;
-    word-wrap: normal;
-    min-height: 100px;
-    resize: unset;
-  }
-
-  .menu-buttons {
-    display: flex;
-    flex-direction: column;
-    opacity: 100%;
-    align-items: flex-end;
-    align-self: flex-end;
-    margin: 5px;
-  }
-  .menu-button {
-    margin: 5px;
-    padding: 5px;
-    background: #eb9b45;
-    cursor: pointer;
-    border: 0px;
-    text-align: center;
-    width: fit-content;
-    opacity: 80%;
-  }
-  .menu-button:hover {
-    opacity: 100%;
-    box-shadow: 2px 1px grey;
   }
 </style>

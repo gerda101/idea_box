@@ -53,7 +53,7 @@
             this.idea.text = editedIdea.text;
           }
         });
-        //Prevent refresh missing
+        //Prevent refresh/long-term storage missing
       },
     }
   }
@@ -84,6 +84,59 @@
   .btn:hover {
     opacity: 100%;
     box-shadow: 2px 1px grey;
+  }
+
+  .buttons {
+    position: absolute;
+    bottom: 5px;
+    align-items: right;
+  }
+  .button {
+    background-color: lightgrey;
+    color: grey;
+    opacity: 60%;
+    border: 0px;
+    text-align: center;
+    margin: 3px;
+  }
+  .button:hover {
+    opacity: 90%;
+    color: black;
+    box-shadow: 2px 1px grey;
+    cursor: pointer;
+  }
+
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    opacity: 100%;
+    align-items: flex-end;
+    align-self: flex-end;
+    margin: 5px;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    align-items: right;
+  }
+  input[type='text'] {
+    padding: 5px;
+    margin: 5px;
+    color: grey;
+  }
+
+  textarea {
+    border: 0px;
+    margin-right: 10px;
+    margin-top: 5px;
+    align-self: flex-end;
+    padding: 10px;
+    width: 70%;
+    word-wrap: normal;
+    min-height: 100px;
+    resize: unset;
   }
 
   .footer {

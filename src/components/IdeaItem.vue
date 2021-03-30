@@ -1,8 +1,8 @@
 <template>
     <div>
       <span :style="pickColor">
-        <div class="idea" v-show="!editing">
-          {{idea.text}}
+        <div v-show="!editing">
+          <p>{{idea.text}}</p>
           <div v-show="viewComments & !editing">
             <Comments v-bind:comments="comment_array" v-bind:idea="idea" @del-comment="deleteComment"/>
               <div v-show="commenting">
@@ -55,17 +55,17 @@
           {
             id: 1,
             idea_id: 1,
-            comment_text: "Test comment"
+            comment_text: "The page should be reactive too, so it changes according to the window size."
           },
           {
             id: 2,
             idea_id: 3,
-            comment_text: "Test comment again"
+            comment_text: "The comments button was pressed, so now you can see them!"
           },
           {
             id: 3,
             idea_id: 3,
-            comment_text: "This is a test comment too"
+            comment_text: "This comment was added later than the one below it."
           }
         ]
       }
@@ -74,7 +74,7 @@
     computed: {
       pickColor() {
         var colors = [
-        "#faa4e3", "#ff6b53", "#ff4122", "#92e1df", "#ffb493"
+        "#faa4e3", "#ff6b53", "#ff4122", "#92e1df", "#ffb493", "#eb9b45", "#e3701d", "#eb9c4a"
         ];
         var random_color = colors[Math.floor(Math.random() * colors.length)];
         //console.log(random_color);
@@ -104,9 +104,12 @@
 </script>
 
 <style scoped>
-  .idea {
+  p {
+    font-family: 'Abril Fatface', serif;
+    text-align:justify;
+    font-size: 1.6vw;
     padding: 5px;
-    font-size: 18px;
+    margin: 10px;
   }
   span {
     background-color: var(--color);
@@ -116,5 +119,6 @@
     padding: 16px;
     padding-bottom: 30px;
     position: relative;
+
   }
 </style>

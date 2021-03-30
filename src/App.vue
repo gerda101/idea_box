@@ -26,15 +26,15 @@
         ideas: [
           {
             id: 1,
-            text: "Test idea 1",
+            text: "Having a nice logo at the top of the page would make the app look more interesting.",
           },
           {
             id: 2,
-            text: "Test idea 2"
+            text: "I think having the ideas displayed on a tileboard would be nice. The colors of the tiles could be drawn from the logo of the page and selected at random on insert."
           },
           {
             id: 3,
-            text: "Test idea 3"
+            text: "Having the different components hiden when not needed would make the interface cleaner."
           }
         ]
       }
@@ -89,7 +89,6 @@
   .buttons {
     position: absolute;
     bottom: 5px;
-    align-items: right;
   }
   .button {
     background-color: lightgrey;
